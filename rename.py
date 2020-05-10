@@ -1,7 +1,7 @@
 import os
 import sys
 
-def rename(name):
+def rename(name,str_len):
     print('name = ',name)
     PACKAGE_DIRECTORY = os.path.abspath('.')
     path=PACKAGE_DIRECTORY #這就是欲進行檔名更改的檔案路徑，路徑的斜線是為/，要留意下！
@@ -14,7 +14,10 @@ def rename(name):
         name_find= files[n].find(name)
         print (name_find)
         if (name_find>0):
-            newname=files[n][name_find:]
+            ext_name=os.path.splitext(files[n])[1]
+            print("ext_name=",ext_name)
+            newname=files[n][name_find:name_find+int(str_len)]
+            newname = newname+ext_name;
             print('newname=',newname)
             #oldname=path+ '\ ' +files[n] #指出檔案現在的路徑名稱，[n]表示第n個檔案
             oldname= os.path.join(path,files[n]) 
@@ -35,7 +38,8 @@ def main (args):
         rename(args [1])
     else:
         cut_str=input("請輸入從哪個字串前刪除")
-        rename(cut_str)
+        str_len=input("保留字串長度")
+        rename(cut_str,str_len)
     
     
     
